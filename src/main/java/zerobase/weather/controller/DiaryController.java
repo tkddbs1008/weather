@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.v3.oas.annotations.Operation;
 import zerobase.weather.domain.Diary;
 import zerobase.weather.service.DiaryService;
 
@@ -24,6 +25,7 @@ public class DiaryController {
 		this.diaryService = diaryService;
 	}
 	
+	@Operation(description="일기 텍스트와 날씨를 이용해서 DB에 일기 저장")
 	@PostMapping("/create/diary")
 	void createDiary(
 			@RequestParam 
@@ -34,6 +36,7 @@ public class DiaryController {
 		diaryService.createDiary(date, text);
 	}
 	
+	@Operation(description="선택한 날짜의 모든 일기 데이터를 가져옵니다")
 	@GetMapping("/read/diary")
 	List<Diary> readDiary(
 			@RequestParam 
@@ -43,6 +46,7 @@ public class DiaryController {
 		return diaryService.readDiary(date);
 	}
 	
+	@Operation(description="선택한 기간의 모든 일기 데이터를 가져옵니다")
 	@GetMapping("/read/diaries")
 	List<Diary> readDiaries(
 			@RequestParam 
@@ -54,6 +58,7 @@ public class DiaryController {
 		return diaryService.readDiaries(startDate, endDate);
 	}
 	
+	@Operation(description="선택한 기간의 처음 일기를 수정합니다")
 	@PutMapping("/update/diary")
 	void updateDiary(
 			@RequestParam 
@@ -65,7 +70,7 @@ public class DiaryController {
 		diaryService.updateDiary(date, text);
 	}
 	
-	
+	@Operation(description="선택한 기간의 일기 데이터를 삭제합니다")
 	@DeleteMapping("/delete/diary")
 	void deleteDiary(
 			@RequestParam 
